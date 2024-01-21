@@ -22,7 +22,7 @@ const config = {
     }),
     visualizer(),
   ],
-  external: [/^node:.+$/, "ink", "minimist", "react", "react/jsx-runtime"],
+  external: [/^node:.+$/, "ink", "minimatch", "minimist", "react", "react/jsx-runtime"],
 };
 
 // noinspection JSUnusedGlobalSymbols
