@@ -21,9 +21,9 @@ export const node: Platform = {
 
       const subprocess: Subprocess = {
         wait: () => {
-          if (proc.exitCode !== null) return Promise.resolve();
+          if (proc.exitCode !== null) return Promise.resolve(proc.exitCode);
           return new Promise((resolve, reject) => {
-            proc.addListener("close", () => void resolve());
+            proc.addListener("close", (exitCode) => void resolve(exitCode ?? 0));
             proc.addListener("error", (e) => void reject(e));
           });
         },

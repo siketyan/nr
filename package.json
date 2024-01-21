@@ -1,7 +1,12 @@
 {
   "name": "@siketyan/nr",
   "description": "Modern and pretty alternative of npm-run-all",
-  "keywords": ["nodejs", "cli", "npm", "npm-scripts"],
+  "keywords": [
+    "nodejs",
+    "cli",
+    "npm",
+    "npm-scripts"
+  ],
   "author": "Natsuki Ikeguchi <me@s6n.jp>",
   "version": "0.1.1",
   "license": "MIT",
@@ -19,20 +24,24 @@
   "type": "module",
   "main": "index.js",
   "types": "dist/main.d.ts",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "bin": {
     "nr": "dist/main.js"
   },
   "scripts": {
     "build": "rollup -c",
-    "check": "biome format .",
+    "check": "biome format . && biome lint .",
     "fix": "biome format --write .",
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@npmcli/package-json": "^5.0.0",
-    "chalk": "^5.3.0",
-    "minimist": "^1.2.8"
+    "ink": "^4.4.1",
+    "minimist": "^1.2.8",
+    "react": "^18.2.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.2",
@@ -41,6 +50,7 @@
     "@types/minimist": "^1.2.5",
     "@types/node": "^20.11.5",
     "@types/npmcli__package-json": "^4.0.3",
+    "@types/react": "^18.2.48",
     "rollup": "^4.9.6",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"

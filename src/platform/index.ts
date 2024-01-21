@@ -4,7 +4,7 @@ export type Write = {
 
 export type Subprocess = {
   exitCode?: number | undefined;
-  wait: () => Promise<void>;
+  wait: () => Promise<number>;
 };
 
 export type Platform = {
