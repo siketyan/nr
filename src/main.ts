@@ -1,6 +1,6 @@
 import PackageJson from "@npmcli/package-json";
 import chalk from "chalk";
-import minimist from "minimist";
+import minimist, { ParsedArgs } from "minimist";
 
 import { append, createConsole, run, Running } from "@/console";
 import { Spinner, Stack, Text } from "@/console/widgets";
@@ -9,10 +9,15 @@ import { parallel, serial } from "@/task";
 
 const { load } = PackageJson;
 
-const platform = node;
-const args = minimist(platform.process.args);
+type Args = ParsedArgs & {
+  help?: boolean;
+  p?: boolean;
+};
 
-if ("help" in args) {
+const platform = node;
+const args: Args = minimist(platform.process.args);
+
+if (args.help) {
   console.log(`Usage: nr [options] [scripts...]
 
 Options:
@@ -27,22 +32,14 @@ Options:
 
   const console = createConsole(platform.io.stdout);
   let running: Running | undefined = undefined;
+  let exitCode = 0;
 
-  ("p" in args ? parallel : serial)(
+  (args.p ? parallel : serial)(
     ...args._.map((arg) => ({
-      run: async () => {
+      run: async (): Promise<number> => {
         const name = Object.keys(scripts).find((name) => name === arg);
         if (!name) {
-          append(
-            console,
-            Stack([
-              Text(chalk.bold.red("✖")),
-              Text(`${chalk.bold.whiteBright(arg)}:`),
-              Text("Error: Script is not defined in the package.json."),
-            ]),
-          );
-
-          return;
+          throw new Error(`Script '${arg}' is not defined in the package.json.`);
         }
 
         const spinner = Spinner();
@@ -63,12 +60,21 @@ Options:
         });
 
         await proc.wait();
+        return proc.exitCode ?? 0;
       },
     })),
   )
     .run()
+    .then((exitCodes) => {
+      exitCode = Math.max(...exitCodes);
+    })
+    .catch(async (e) => {
+      exitCode = 1;
+      append(console, Stack([Text(chalk.bold.red("✖")), Text(`${chalk.bold.whiteBright("Error")}:`), Text(e.message)]));
+    })
     .finally(() => {
       running?.stop();
+      platform.process.exit(exitCode);
     });
 
   running = run(console);
