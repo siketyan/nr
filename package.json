@@ -1,6 +1,7 @@
 {
   "name": "@siketyan/nr",
   "description": "Modern and pretty alternative of npm-run-all",
+  "keywords": ["nodejs", "cli", "npm", "npm-scripts"],
   "author": "Natsuki Ikeguchi <me@s6n.jp>",
   "version": "0.1.1",
   "license": "MIT",
