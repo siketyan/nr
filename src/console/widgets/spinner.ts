@@ -1,4 +1,4 @@
-import { Widget } from "@/console/index";
+import { Widget } from "@/console";
 import { loop } from "@/iter";
 
 const DEFAULT_CHARS = "⠁⠂⠄⡀⢀⠠⠐⠈";

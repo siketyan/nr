@@ -3,9 +3,7 @@ import chalk from "chalk";
 import minimist from "minimist";
 
 import { append, createConsole, run, Running } from "@/console";
-import { Text } from "@/console/text";
-import { Stack } from "@/console/stack";
-import { Spinner } from "@/console/spinner";
+import { Spinner, Stack, Text } from "@/console/widgets";
 import { node } from "@/platform/node";
 import { parallel, serial } from "@/task";
 
