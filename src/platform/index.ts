@@ -11,6 +11,9 @@ export type Platform = {
   readonly io: {
     readonly stdout: Write;
   };
+  readonly fs: {
+    readonly readFile: (path: string) => Promise<Uint8Array>;
+  };
   readonly process: {
     readonly args: string[];
     readonly exit: (exitCode: number) => void;

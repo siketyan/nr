@@ -8,7 +8,7 @@
     "npm-scripts"
   ],
   "author": "Natsuki Ikeguchi <me@s6n.jp>",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "readme": "README.md",
   "homepage": "https://github.com/siketyan/nr",
@@ -38,20 +38,20 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@npmcli/package-json": "^5.0.0",
     "ink": "^4.4.1",
     "minimist": "^1.2.8",
     "react": "^18.2.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.5.2",
+    "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/minimist": "^1.2.5",
     "@types/node": "^20.11.5",
-    "@types/npmcli__package-json": "^4.0.3",
     "@types/react": "^18.2.48",
     "rollup": "^4.9.6",
+    "rollup-plugin-visualizer": "^5.12.0",
     "tslib": "^2.6.2",
     "typescript": "^5.3.3"
   }

@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { readFile } from "node:fs/promises";
 import { stdout } from "node:process";
 
 import { Platform, Subprocess } from "@/platform";
@@ -8,6 +9,9 @@ export const node: Platform = {
     stdout: {
       write: (buf) => stdout.write(buf),
     },
+  },
+  fs: {
+    readFile: (path) => readFile(path),
   },
   process: {
     args: process.argv.slice(2 + process.execArgv.length),

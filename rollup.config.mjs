@@ -1,4 +1,8 @@
+import replace from "@rollup/plugin-replace";
+import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
+
+import { visualizer } from "rollup-plugin-visualizer";
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
@@ -8,8 +12,17 @@ const config = {
     format: "esm",
     sourcemap: true,
   },
-  plugins: [typescript()],
-  external: [/^node:.+$/, "@npmcli/package-json", "chalk", "minimist"],
+  plugins: [
+    terser(),
+    typescript(),
+    replace({
+      preventAssignment: true,
+      "process.env.NODE_DEBUG": "'false'",
+      "process.env.NODE_ENV": "'production'",
+    }),
+    visualizer(),
+  ],
+  external: [/^node:.+$/, "ink", "minimist", "react", "react/jsx-runtime"],
 };
 
 // noinspection JSUnusedGlobalSymbols

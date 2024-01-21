@@ -1,4 +1,3 @@
-import PackageJson from "@npmcli/package-json";
 import { Box } from "ink";
 import { type FC, useEffect, useState } from "react";
 
@@ -6,6 +5,10 @@ import { ErrorMessage } from "@/components/ErrorMessage";
 import { Tasks, TaskStack } from "@/components/TaskStack";
 import { Platform } from "@/platform";
 import { parallel, serial } from "@/task";
+
+type PackageJson = {
+  scripts?: Record<string, string>;
+};
 
 type Props = {
   platform: Platform;
@@ -21,14 +24,18 @@ export const App: FC<Props> = ({ platform, criteria, isParallel = false }) => {
   useEffect(() => {
     if (packageJson !== undefined) return;
 
-    PackageJson.load(".").then((j) => {
-      setPackageJson(j);
-    });
-  }, [packageJson]);
+    platform.fs
+      .readFile("./package.json")
+      .then((buf) => new TextDecoder().decode(buf))
+      .then((str) => JSON.parse(str) as PackageJson)
+      .then((j) => {
+        setPackageJson(j);
+      });
+  }, [platform, packageJson]);
 
   useEffect(() => {
     if (packageJson === undefined) return;
-    const scripts = packageJson.content.scripts ?? {};
+    const scripts = packageJson.scripts ?? {};
 
     (isParallel ? parallel : serial)(
       ...criteria.map((criteria) => ({
