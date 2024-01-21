@@ -1,3 +1,4 @@
+import { detect } from "@antfu/ni";
 import { Box } from "ink";
 import { minimatch } from "minimatch";
 import { type ComponentProps, type FC, useEffect, useState } from "react";
@@ -55,8 +56,15 @@ export const App: FC<Props> = ({ platform, criteria, isParallel = false }) => {
         return names;
       })
       .map((name) => ({
-        run: async (): Promise<number> => {
-          const proc = platform.subprocess.run("npm", ["run", name]);
+        run: async (packageManager: Awaited<ReturnType<typeof detect>>): Promise<number> => {
+          const [cmd, args] = (() => {
+            if (packageManager === "bun") return ["bun", ["run"]];
+            if (packageManager?.startsWith("pnpm")) return ["pnpm", ["run"]];
+            if (packageManager?.startsWith("yarn")) return ["yarn", ["run"]];
+            return ["npm", ["run"]];
+          })();
+
+          const proc = platform.subprocess.run(cmd, [...args, name]);
 
           setTasks((tasks) => ({
             ...tasks,
@@ -90,8 +98,8 @@ export const App: FC<Props> = ({ platform, criteria, isParallel = false }) => {
         },
       }));
 
-    (isParallel ? parallel : serial)(...matches)
-      .run()
+    detect()
+      .then((pm) => (isParallel ? parallel : serial)(...matches).run(pm))
       .then((exitCodes) => {
         platform.process.exit(exitCodes.length === 0 ? 1 : Math.max(...exitCodes));
       })

@@ -12,7 +12,7 @@ type Args = ParsedArgs & {
 
 const platform = node;
 const args: Args = minimist(platform.process.args, {
-  boolean: ['p'],
+  boolean: ["p"],
 });
 
 if (args.help) {

@@ -1,3 +1,4 @@
+import nodeResolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import terser from "@rollup/plugin-terser";
 import typescript from "@rollup/plugin-typescript";
@@ -15,6 +16,7 @@ const config = {
   plugins: [
     terser(),
     typescript(),
+    nodeResolve(),
     replace({
       preventAssignment: true,
       "process.env.NODE_DEBUG": "'false'",

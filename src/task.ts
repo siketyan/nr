@@ -1,19 +1,19 @@
-export type Task<T = void> = {
-  run: () => Promise<T>;
+export type Task<T = void, A = void> = {
+  run: (arg: A) => Promise<T>;
 };
 
-export const parallel = <T>(...task: Task<T>[]): Task<T[]> => {
+export const parallel = <T, A>(...task: Task<T, A>[]): Task<T[], A> => {
   return {
-    run: () => Promise.all(task.map((t) => t.run())),
+    run: (arg: A) => Promise.all(task.map((t) => t.run(arg))),
   };
 };
 
-export const serial = <T>(...task: Task<T>[]): Task<T[]> => {
+export const serial = <T, A>(...task: Task<T, A>[]): Task<T[], A> => {
   return {
-    run: async () => {
+    run: async (arg: A) => {
       const values: T[] = [];
       for (const t of task) {
-        values.push(await t.run());
+        values.push(await t.run(arg));
       }
       return values;
     },
