@@ -27,6 +27,10 @@ yarn add -D @siketyan/nr
 
 ## Usage
 
+> [!NOTE]
+> You can specify target scripts using wildcards, braces, or globs.
+> For details, please refer the documentation of [minimatch](https://github.com/isaacs/minimatch).
+
 ### Run in serial (default)
 
 ```shell
