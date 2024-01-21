@@ -25,7 +25,8 @@
   "scripts": {
     "build": "rollup -c",
     "check": "biome format .",
-    "fix": "biome format --write ."
+    "fix": "biome format --write .",
+    "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
     "@npmcli/package-json": "^5.0.0",
