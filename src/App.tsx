@@ -17,10 +17,10 @@ type Messages = ComponentProps<typeof Message>[];
 type Props = {
   platform: Platform;
   criteria: string[];
-  isParallel?: boolean | undefined;
+  concurrency?: number | undefined;
 };
 
-export const App: FC<Props> = ({ platform, criteria, isParallel = false }) => {
+export const App: FC<Props> = ({ platform, criteria, concurrency }) => {
   const [packageJson, setPackageJson] = useState<PackageJson>();
   const [messages, setMessages] = useState<Messages>([]);
   const [tasks, setTasks] = useState<Tasks>({});
@@ -99,7 +99,10 @@ export const App: FC<Props> = ({ platform, criteria, isParallel = false }) => {
       }));
 
     detect()
-      .then((pm) => (isParallel ? parallel : serial)(...matches).run(pm))
+      .then((pm) => {
+        if (concurrency === undefined) return serial(...matches).run(pm);
+        return parallel(concurrency)(...matches).run(pm);
+      })
       .then((exitCodes) => {
         platform.process.exit(exitCodes.length === 0 ? 1 : Math.max(...exitCodes));
       })
@@ -107,7 +110,7 @@ export const App: FC<Props> = ({ platform, criteria, isParallel = false }) => {
         setMessages((msgs) => [...msgs, { message: e.message, severity: "error" }]);
         platform.process.exit(1);
       });
-  }, [platform, criteria, isParallel, packageJson]);
+  }, [platform, criteria, concurrency, packageJson]);
 
   return (
     <Box flexDirection="column">

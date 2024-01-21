@@ -42,3 +42,9 @@ nr foo bar baz
 ```shell
 nr -p foo bar baz
 ```
+
+If you want to limit concurrent tasks, append a number to the flag:
+
+```shell
+nr -p 2 foo bar baz
+```
