@@ -1,5 +1,8 @@
 # nr - Modern and pretty alternative of npm-run-all
 
+[![NPM Version](https://img.shields.io/npm/v/@siketyan/nr)](https://www.npmjs.com/package/@siketyan/nr)
+[![MIT License](https://img.shields.io/npm/l/@siketyan/nr)](./LICENCE.md)
+
 ## Prerequisites
 
 - Node.js v20+
