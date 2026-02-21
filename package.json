@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "ink": "^4.4.1",
-    "minimatch": "^9.0.3",
+    "minimatch": "^10.2.1",
     "minimist": "^1.2.8",
     "react": "^18.2.0"
   },
