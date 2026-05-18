@@ -9,7 +9,7 @@ dependencies:
     specifier: ^4.4.1
     version: 4.4.1(@types/react@18.2.48)(react@18.2.0)
   minimatch:
-    specifier: ^9.0.3
+    specifier: ^9.0.7
     version: 9.0.7
   minimist:
     specifier: ^1.2.8
@@ -47,7 +47,7 @@ devDependencies:
     specifier: ^18.2.48
     version: 18.2.48
   rollup:
-    specifier: ^4.9.6
+    specifier: ^4.59.0
     version: 4.59.0
   rollup-plugin-visualizer:
     specifier: ^5.12.0
@@ -561,8 +561,8 @@ packages:
     engines: {node: 18 || 20 || >=22}
     dev: false
 
-  /brace-expansion@5.0.4:
-    resolution: {integrity: sha512-h+DEnpVvxmfVefa4jFbCf5HdH5YMDXRsmKflpf1pILZWRFlTbJpxeU55nJl4Smt5HQaGzg1o6RHFPJaOqnmBDg==}
+  /brace-expansion@5.0.6:
+    resolution: {integrity: sha512-kLpxurY4Z4r9sgMsyG0Z9uzsBlgiU/EFKhj/h91/8yHu0edo7XuixOIH3VcJ8kkxs6/jPzoI6U9Vj3WqbMQ94g==}
     engines: {node: 18 || 20 || >=22}
     dependencies:
       balanced-match: 4.0.4
@@ -846,7 +846,7 @@ packages:
     resolution: {integrity: sha512-MOwgjc8tfrpn5QQEvjijjmDVtMw2oL88ugTevzxQnzRLm6l3fVEF2gzU0kYeYYKD8C66+IdGX6peJ4MyUlUnPg==}
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
-      brace-expansion: 5.0.4
+      brace-expansion: 5.0.6
     dev: false
 
   /minimist@1.2.8:
